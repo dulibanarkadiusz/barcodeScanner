@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Inwentaryzator</string>
+    <string name="scan_from_fragment">Skanuj kod</string>
+
+</resources>
