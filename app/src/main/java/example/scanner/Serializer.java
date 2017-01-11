@@ -9,13 +9,17 @@ import org.json.JSONObject;
  */
 
 public final class Serializer {
-    public static Computer[] deserialize(JSONObject object)
+    public static Object[] deserialize(JSONObject object, Class<?> className )
     {
         try {
             Gson gson = new Gson();
             String s =object.getString("data");
-            Computer[] computers = gson.fromJson(s, Computer[].class);
-            return  computers;
+            Object[] objects;
+            if(className == Computer.class)
+                objects = gson.fromJson(s,Computer[].class);
+            else
+                return null;
+            return  objects;
         }catch (Exception ex){
             return null;
         }

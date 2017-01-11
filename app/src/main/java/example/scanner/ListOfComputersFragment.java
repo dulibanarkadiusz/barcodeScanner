@@ -1,6 +1,8 @@
 package example.scanner;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -55,6 +57,20 @@ public class ListOfComputersFragment extends ListFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()) {
+            if (isVisibleToUser) {
+                try {
+                    getComputers();
+
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         try {
@@ -67,6 +83,23 @@ public class ListOfComputersFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
+        dlgAlert.setMessage("This is an alert with no consequence");
+        dlgAlert.setTitle("App Title");
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT);
+                    }
+                });
+        dlgAlert.setNegativeButton("Cancle",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "Cancle", Toast.LENGTH_SHORT);
+                    }
+                });
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
     }
 
     public void getComputers() throws JSONException {
@@ -74,7 +107,7 @@ public class ListOfComputersFragment extends ListFragment {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                computers = Serializer.deserialize(response);
+                computers = (Computer[]) Serializer.deserialize(response, Computer.class);
                 ComputerAdapter computerAdapter = new ComputerAdapter(getActivity(), computers);
                 setListAdapter(computerAdapter);
             }
