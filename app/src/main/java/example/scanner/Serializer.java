@@ -17,6 +17,8 @@ public final class Serializer {
             Object[] objects;
             if(className == Computer.class)
                 objects = gson.fromJson(s,Computer[].class);
+            else if(className == DropdownElement.class)
+                objects = gson.fromJson(s,DropdownElement[].class);
             else
                 return null;
             return  objects;

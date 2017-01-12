@@ -3,19 +3,25 @@ package example.scanner;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Hanna on 09.01.2017.
  */
 
 public class ScanAndEditComputerFragment extends Fragment {
-
+    private DropdownElement[] elementsList;
 
 
     public ScanAndEditComputerFragment(){
@@ -35,6 +41,11 @@ public class ScanAndEditComputerFragment extends Fragment {
 
         Button buttonScan = (Button)rootView.findViewById(R.id.buttonScan);
 
+        try {
+            getRoomsList();
+            getOperatingSystemsList();
+        }catch(JSONException e){}
+
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,5 +60,38 @@ public class ScanAndEditComputerFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+
+    public void getRoomsList() throws JSONException {
+        ServerRespons.get("?type=locations", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                elementsList = (DropdownElement[]) Serializer.deserialize(response, DropdownElement.class);
+
+                DropdownElementAdapter listAdapter = new DropdownElementAdapter(getActivity(), elementsList);
+
+                MainActivity m = (MainActivity)getActivity();
+                Spinner room_list = (Spinner)m.findViewById(R.id.spinner_room);
+                room_list.setAdapter(listAdapter);
+            }
+        });
+    }
+
+    public void getOperatingSystemsList() throws JSONException {
+        ServerRespons.get("?type=os", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                elementsList = (DropdownElement[]) Serializer.deserialize(response, DropdownElement.class);
+
+                DropdownElementAdapter listAdapter = new DropdownElementAdapter(getActivity(), elementsList);
+
+                MainActivity m = (MainActivity)getActivity();
+                Spinner room_list = (Spinner)m.findViewById(R.id.spinner_os);
+                room_list.setAdapter(listAdapter);
+            }
+        });
     }
 }
