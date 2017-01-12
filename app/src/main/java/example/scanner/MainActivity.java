@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showSoftwareListDialog(View view){
         /* Sposób I */
-        SoftwareListFragment softwareListFragment = new SoftwareListFragment();
+        SoftwareListFragment softwareListFragment = SoftwareListFragment.newInstance();
         softwareListFragment.show(getSupportFragmentManager(), "test");
 
 

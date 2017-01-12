@@ -30,6 +30,12 @@ public class SoftwareListFragment extends DialogFragment {
     ViewGroup viewGroup;
 
 
+    public static SoftwareListFragment newInstance() {
+        SoftwareListFragment fragment = new SoftwareListFragment();
+        return fragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,7 +46,7 @@ public class SoftwareListFragment extends DialogFragment {
 
         Log.d("x", "Wywolanie okna");
 
-        return inflater.inflate(R.layout.fragment_software_list, null);
+        return rootView;//inflater.inflate(R.layout.fragment_software_list, null);
     }
 
 
