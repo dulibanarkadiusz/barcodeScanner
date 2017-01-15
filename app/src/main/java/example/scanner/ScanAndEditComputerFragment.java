@@ -3,18 +3,22 @@ package example.scanner;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by Hanna on 09.01.2017.
@@ -22,9 +26,11 @@ import org.json.JSONObject;
 
 public class ScanAndEditComputerFragment extends Fragment {
     private DropdownElement[] elementsList;
+    private Computer[] computers;
+    private Computer currentComputer;
+    private Boolean isNewComputer;
 
-
-    public ScanAndEditComputerFragment(){
+    public ScanAndEditComputerFragment() {
 
     }
 
@@ -39,12 +45,13 @@ public class ScanAndEditComputerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.scan_and_edit_computer_fragment, container, false);
 
-        Button buttonScan = (Button)rootView.findViewById(R.id.buttonScan);
+        Button buttonScan = (Button) rootView.findViewById(R.id.buttonScan);
 
         try {
             getRoomsList();
             getOperatingSystemsList();
-        }catch(JSONException e){}
+        } catch (JSONException e) {
+        }
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +79,15 @@ public class ScanAndEditComputerFragment extends Fragment {
 
                 DropdownElementAdapter listAdapter = new DropdownElementAdapter(getActivity(), elementsList);
 
-                MainActivity m = (MainActivity)getActivity();
-                Spinner room_list = (Spinner)m.findViewById(R.id.spinner_room);
+                MainActivity m = (MainActivity) getActivity();
+                Spinner room_list = (Spinner) m.findViewById(R.id.spinner_room);
                 room_list.setAdapter(listAdapter);
             }
         });
+    }
+
+    public Boolean getIsNewComputer(){
+        return isNewComputer;
     }
 
     public void getOperatingSystemsList() throws JSONException {
@@ -88,10 +99,46 @@ public class ScanAndEditComputerFragment extends Fragment {
 
                 DropdownElementAdapter listAdapter = new DropdownElementAdapter(getActivity(), elementsList);
 
-                MainActivity m = (MainActivity)getActivity();
-                Spinner room_list = (Spinner)m.findViewById(R.id.spinner_os);
+                MainActivity m = (MainActivity) getActivity();
+                Spinner room_list = (Spinner) m.findViewById(R.id.spinner_os);
                 room_list.setAdapter(listAdapter);
             }
         });
+    }
+
+    public void getComputerData(MainActivity mA, String barcode) throws JSONException {
+        final MainActivity mainActivity = mA;
+
+        ServerRespons.get("?type=computer&bc=" + barcode, null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                if (response.toString().contains("[]")){
+                    mainActivity.showDialogToConfirmCreatingNewComputer();
+                    return;
+                }
+
+                computers = (Computer[]) Serializer.deserialize(response, Computer.class);
+                currentComputer = computers[0];
+                isNewComputer = false;
+                writeDataToForm(mainActivity);
+            }
+        });
+    }
+
+    public void createNewComputer(MainActivity m, String barcode){
+        currentComputer = new Computer();
+        currentComputer.setBarcode(barcode);
+        isNewComputer = true;
+
+        writeDataToForm(m);
+    }
+
+    private void writeDataToForm(MainActivity m){
+        ((TextView)m.findViewById(R.id.textViewValueBarcode)).setText(currentComputer.getBarcode());
+        ((EditText)m.findViewById(R.id.editTextName)).setText(currentComputer.getName());
+
+        m.setVisibilityEditorForm(true);
     }
 }

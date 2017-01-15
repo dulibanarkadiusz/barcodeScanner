@@ -4,10 +4,18 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string name="btn_confirm">OK</string>
-    <string name="btn_scan">Skanuj kod komputera</string>
+    <string name="btn_scan">Skan</string>
     <string name="btn_softSettings">Zarządzaj</string>
     <string name="btn_save">Zapisz</string>
     <string name="btn_discard">Odrzuć</string>
+    <string name="btn_yes">Tak</string>
+    <string name="btn_no">Nie</string>
+
+    <string name="alert_emptyBarcode">Nie podano kodu urządzenia.</string>
+    <string name="alert_unknownBarcodeTitle">Nieznany kod urządzenia</string>
+    <string name="alert_unknownBarcodeText">W bazie nie ma urządzenia o żądanym kodzie.\nCzy chcesz dodać teraz urządzenie?</string>
+
+    <string name="message_barcodeAdded">Dodano urządzenie</string>
 
     <string name="desc_barcode">Kod</string>
     <string name="desc_editComputer">Edytowany komputer:</string>

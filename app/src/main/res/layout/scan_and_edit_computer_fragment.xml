@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,11 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <Button
-                android:text="@string/btn_scan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonScan" />
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -35,7 +32,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textViewBarcode"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:textAlignment="gravity" />
 
                     <EditText
@@ -44,19 +41,28 @@
                         android:inputType="textPersonName"
                         android:ems="10"
                         android:id="@+id/editTextBarCode"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:textColorLink="?attr/colorPrimary" />
 
                     <Button
                         android:text="@string/btn_confirm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/button"
-                        android:layout_weight="1" />
+                        android:id="@+id/buttonOK"
+                        android:layout_weight="600"
+                        android:onClick="getComputerDataButtonOnclick" />
+
+                    <Button
+                        android:text="@string/btn_scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buttonScan"
+                        android:layout_weight="400"/>
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/editForm"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
