@@ -36,9 +36,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ISendComputer {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Computer selectedComputer;
 
     private ViewPager mViewPager;
 
@@ -130,4 +131,17 @@ public class MainActivity extends AppCompatActivity {
         softwareListFragment.show(getSupportFragmentManager(), "test");
 
     }
+
+    @Override
+    public void onComputerSend(Computer computer) {
+        selectedComputer = computer;
+    }
+
+    public Computer getSelectedComputer() {
+        return selectedComputer;
+    }
+
+   public void clearSelectedComputer(){
+       selectedComputer = null;
+   }
 }

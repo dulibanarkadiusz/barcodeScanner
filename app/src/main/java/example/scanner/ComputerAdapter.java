@@ -48,7 +48,7 @@ public class ComputerAdapter extends BaseAdapter {
 
         //get title and artist views
         TextView computerName = (TextView) computerLay.findViewById(R.id.computerName);
-        TextView computerBarcode = (TextView) computerLay.findViewById(R.id.computerBarcode);
+       // TextView computerBarcode = (TextView) computerLay.findViewById(R.id.computerBarcode);
         TextView computerLocation = (TextView) computerLay.findViewById(R.id.computerLocation);
 
         //get song using position
@@ -56,7 +56,7 @@ public class ComputerAdapter extends BaseAdapter {
 
         //get title and artist strings
         computerName.setText(currentComputer.getName());
-        computerBarcode.setText(currentComputer.getBarcode());
+        //computerBarcode.setText(currentComputer.getBarcode());
         computerLocation.setText(currentComputer.getLocation());
 
         //set position as tag

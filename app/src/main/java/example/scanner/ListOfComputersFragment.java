@@ -2,13 +2,17 @@ package example.scanner;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.util.Pools;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,7 +42,9 @@ import java.util.ArrayList;
 
 public class ListOfComputersFragment extends ListFragment {
     private Computer[] computers;
-    private final String API_URL = "http://79.96.84.148/bc/GetData.php?type=computer";
+    private ISendComputer mCallback;
+    private DropdownElement[] elementsList;
+
 
     public ListOfComputersFragment() {
 
@@ -50,9 +56,41 @@ public class ListOfComputersFragment extends ListFragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mCallback = (ISendComputer) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Cannot send clicekd computer to edit.");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_of_computers_fragment, container, false);
+
+        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_search_room);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                try {
+                    getComputers();
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                try {
+                    getComputers();
+                } catch (Exception ex) {
+                }
+            }
+
+        });
         return rootView;
     }
 
@@ -63,7 +101,6 @@ public class ListOfComputersFragment extends ListFragment {
             if (isVisibleToUser) {
                 try {
                     getComputers();
-
                 } catch (Exception ex) {
                 }
             }
@@ -75,13 +112,13 @@ public class ListOfComputersFragment extends ListFragment {
         super.onResume();
         try {
             getComputers();
-
+            getRoomsList();
         } catch (Exception ex) {
         }
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, View v, final int position, long id) {
         super.onListItemClick(l, v, position, id);
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
         dlgAlert.setMessage("This is an alert with no consequence");
@@ -89,6 +126,7 @@ public class ListOfComputersFragment extends ListFragment {
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        mCallback.onComputerSend(computers[position]);
                         Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT);
                     }
                 });
@@ -110,6 +148,22 @@ public class ListOfComputersFragment extends ListFragment {
                 computers = (Computer[]) Serializer.deserialize(response, Computer.class);
                 ComputerAdapter computerAdapter = new ComputerAdapter(getActivity(), computers);
                 setListAdapter(computerAdapter);
+            }
+        });
+    }
+
+    public void getRoomsList() throws JSONException {
+        ServerRespons.get("?type=locations", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                elementsList = (DropdownElement[]) Serializer.deserialize(response, DropdownElement.class);
+
+                DropdownElementAdapter listAdapter = new DropdownElementAdapter(getActivity(), elementsList);
+
+                MainActivity m = (MainActivity) getActivity();
+                Spinner room_list = (Spinner) m.findViewById(R.id.spinner_search_room);
+                room_list.setAdapter(listAdapter);
             }
         });
     }

@@ -141,4 +141,47 @@ public class ScanAndEditComputerFragment extends Fragment {
 
         m.setVisibilityEditorForm(true);
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (this.isVisible()) {
+            if (isVisibleToUser) {
+                if(((MainActivity)getActivity()).getSelectedComputer() != null) {
+                    currentComputer = ((MainActivity) getActivity()).getSelectedComputer();
+                    fillForm(currentComputer);
+                    ((MainActivity) getActivity()).clearSelectedComputer();
+                }
+            }
+        }
+    }
+
+    private void fillForm(Computer computer){
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.textViewValueBarcode)).setText(computer.getBarcode());
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.editTextName )).setText(computer.getName());
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.editTextIP)).setText(computer.getIp());
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.editTextMAC)).setText(computer.getMac());
+        ((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_room)).setSelection(getLocationId(computer.getLocation()));
+        ((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_os)).setSelection(getOsId(computer.getOs_name()));
+    }
+
+    private int getLocationId(String location){
+        int count = ((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_room)).getCount();
+        for(int i = 0;i< count;i++){
+            if(location.equals(((DropdownElement)((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_room)).getItemAtPosition(i)).getName()))
+                return i;
+        }
+        return -1;
+    }
+
+    private int getOsId(String os_name){
+        int count = ((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_os)).getCount();
+        for(int i = 0;i< count;i++){
+            if(os_name.equals(((DropdownElement)((Spinner)((MainActivity)getActivity()).findViewById(R.id.spinner_os)).getItemAtPosition(i)).getName()))
+                return i;
+        }
+        return -1;
+    }
+
 }

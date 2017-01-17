@@ -26,4 +26,14 @@ public final class Serializer {
             return null;
         }
     }
+
+    public static String serialize(Object object){
+        try{
+            Gson gson =  new Gson();
+            String j = gson.toJson(object);
+            return j;
+        }catch (Exception ex){
+            return "";
+        }
+    }
 }
