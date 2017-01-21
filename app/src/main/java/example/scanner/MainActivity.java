@@ -121,7 +121,9 @@ public class MainActivity extends AppCompatActivity implements ISendComputer {
         Spinner spinner = (Spinner) findViewById(R.id.spinner_room);
         DropdownElement item = (DropdownElement)spinner.getSelectedItem();
 
-        setVisibilityEditorForm(false);
+        //setVisibilityEditorForm(false);
+        ((ScanAndEditComputerFragment) mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem())).saveData();
+
         Log.d("x", item.getName());
     }
 

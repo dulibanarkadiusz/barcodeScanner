@@ -5,23 +5,27 @@ package example.scanner;
  */
 
 public class Computer {
-    private int id;
-    private String barcode;
-    private String ip;
-    private String mac;
-    private String name;
-    private String location;
-    private String os_name;
+    private int id = -1;
+    private String barcode = "";
+    private String ip = "";
+    private String mac = "";
+    private String name = "";
+    private String location = "";
+    private String os_name = "";
+    private String key = "";
+    private String software = "";
 
     public Computer(){}
 
-    public Computer(int id, String barcode,String ip,String mac, String name,String location, String os_name){
+    public Computer(int id, String barcode,String ip,String mac, String name,String location, String os_name, String key, String software){
         this.id=id;
         this.barcode = barcode;
         this.mac = mac;
         this.name = name;
         this.location = location;
         this.os_name = os_name;
+        this.key = key;
+        this.software = software;
     }
 
     public int getId() {
@@ -79,4 +83,12 @@ public class Computer {
     public void setOs_name(String os_name) {
         this.os_name = os_name;
     }
+
+    public String getKey() { return key; }
+
+    public void setKey(String key) { this.key = key; }
+
+    public String getSoftware() { return software; }
+
+    public void setSoftware(String software) { this.software = software; }
 }

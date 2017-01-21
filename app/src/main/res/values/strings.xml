@@ -14,6 +14,8 @@
     <string name="alert_emptyBarcode">Nie podano kodu urządzenia.</string>
     <string name="alert_unknownBarcodeTitle">Nieznany kod urządzenia</string>
     <string name="alert_unknownBarcodeText">W bazie nie ma urządzenia o żądanym kodzie.\nCzy chcesz dodać teraz urządzenie?</string>
+    <string name="alert_computerSave">Zmiany zostały zapisane</string>
+    <string name="alert_error">Operacja zakończona niepowodzeniem</string>
 
     <string name="message_barcodeAdded">Dodano urządzenie</string>
 

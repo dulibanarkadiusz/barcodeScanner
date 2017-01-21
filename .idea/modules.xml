@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BC.iml" filepath="$PROJECT_DIR$/BC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BC_20sty.iml" filepath="$PROJECT_DIR$/BC_20sty.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/barcodeScanner.iml" filepath="$PROJECT_DIR$/barcodeScanner.iml" />
     </modules>
   </component>
 </project>

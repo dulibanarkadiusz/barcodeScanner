@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private ScanAndEditComputerFragment scanAndEditComputerFragment;
-    private ListOfComputersFragment listOfComputersFragment;
+    private ListOfComputersFragment listOfComputersFragment=null;
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -22,7 +22,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position == 0) {
-            scanAndEditComputerFragment = ScanAndEditComputerFragment.newInstance();
+            if(scanAndEditComputerFragment == null )
+                scanAndEditComputerFragment = ScanAndEditComputerFragment.newInstance();
             return scanAndEditComputerFragment;
         }
         else {

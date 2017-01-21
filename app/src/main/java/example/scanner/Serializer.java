@@ -1,5 +1,7 @@
 package example.scanner;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ public final class Serializer {
         try{
             Gson gson =  new Gson();
             String j = gson.toJson(object);
+            Log.d("x", j);
             return j;
         }catch (Exception ex){
             return "";
