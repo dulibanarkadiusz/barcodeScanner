@@ -11,7 +11,8 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.97">
+        android:layout_weight="0.97"
+        android:background="@drawable/customborder">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -21,13 +22,12 @@
 
             <TextView
                 android:id="@+id/computerName"
-                android:layout_width="299dp"
+                android:layout_width="246dp"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_weight="0.82" />
+                android:padding="10dp" />
 
             <TextView
-                android:layout_width="95dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:id="@+id/computerLocation" />

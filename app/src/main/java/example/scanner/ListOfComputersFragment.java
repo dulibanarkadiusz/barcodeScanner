@@ -111,8 +111,8 @@ public class ListOfComputersFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         try {
-            getComputers();
             getRoomsList();
+            getComputers();
         } catch (Exception ex) {
         }
     }
@@ -141,7 +141,8 @@ public class ListOfComputersFragment extends ListFragment {
     }
 
     public void getComputers() throws JSONException {
-        ServerRespons.get("?type=computer", null, new JsonHttpResponseHandler() {
+        int roomId = ((DropdownElement)((Spinner)getActivity().findViewById(R.id.spinner_search_room)).getSelectedItem()).getId();
+        ServerRespons.get("?type=computer&locationId="+String.valueOf(roomId), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
