@@ -121,19 +121,17 @@ public class ListOfComputersFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, final int position, long id) {
         super.onListItemClick(l, v, position, id);
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
-        dlgAlert.setMessage("This is an alert with no consequence");
-        dlgAlert.setTitle("App Title");
+        dlgAlert.setMessage("Czy na pewno chcesz edytować ten komputer?");
+        dlgAlert.setTitle("Uwaga!");
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mCallback.onComputerSend(computers[position]);
-                        Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT);
                     }
                 });
-        dlgAlert.setNegativeButton("Cancle",
+        dlgAlert.setNegativeButton("Anuluj",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Cancle", Toast.LENGTH_SHORT);
                     }
                 });
         dlgAlert.setCancelable(true);
