@@ -78,7 +78,9 @@ public class ScanAndEditComputerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        setEnabledForm(false);
+        if (currentComputer==null||currentComputer.getBarcode().length()==0) {
+            setEnabledForm(false);
+        }
     }
 
     private void setEnabledForm(boolean isEnabled){
