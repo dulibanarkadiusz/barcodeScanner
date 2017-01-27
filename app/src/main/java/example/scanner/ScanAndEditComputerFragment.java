@@ -29,7 +29,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by Hanna on 09.01.2017.
  */
 
-public class ScanAndEditComputerFragment extends Fragment {
+public class ScanAndEditComputerFragment extends Fragment{
     private DropdownElement[] elementsList;
     private Computer[] computers;
     private Computer currentComputer;
@@ -63,10 +63,14 @@ public class ScanAndEditComputerFragment extends Fragment {
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(getActivity());
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+
+                //ZADANIE 3
                 integrator.setPrompt("Scan a barcode");
+                // integrator.setPrompt("Zeskanuj kod kreskowy"); //3.b
                 integrator.setResultDisplayDuration(0);
-                integrator.setWide();  // Wide scanning rectangle, may work better for 1D barcodes
-                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setWide(); // 3.c
+                integrator.setCameraId(0);
+                //integrator.setCameraId(1);//3.a
                 integrator.initiateScan();
 
             }
@@ -224,7 +228,13 @@ public class ScanAndEditComputerFragment extends Fragment {
 
         if (this.isVisible()) {
             if (isVisibleToUser) {
-                if(((MainActivity)getActivity()).getSelectedComputer() != null) {
+                if(((MainActivity)getActivity()).getSelectedComputer() != null){
+                    //ZADANIE 4
+                    /*
+                    if(((MainActivity) getActivity()).getSave() && currentComputer!= null){
+                        this.saveData();
+                    }
+                    */
                     currentComputer = ((MainActivity) getActivity()).getSelectedComputer();
                     fillForm(currentComputer);
                     ((MainActivity) getActivity()).clearSelectedComputer();
@@ -278,5 +288,4 @@ public class ScanAndEditComputerFragment extends Fragment {
         }
         return -1;
     }
-
 }

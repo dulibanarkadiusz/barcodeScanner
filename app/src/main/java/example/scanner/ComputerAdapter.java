@@ -41,25 +41,22 @@ public class ComputerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //map to song layout
         LinearLayout computerLay;
 
         computerLay = (LinearLayout) songInf.inflate(R.layout.computer_list_item, parent, false);
 
-        //get title and artist views
         TextView computerName = (TextView) computerLay.findViewById(R.id.computerName);
         TextView computerBarcode = (TextView) computerLay.findViewById(R.id.computerBarcode);
-       // TextView computerLocation = (TextView) computerLay.findViewById(R.id.computerLocation);
+        //ZADANIE 2
+        //TextView computerOS = (TextView) computerLay.findViewById(R.id.computerOS);
 
-        //get song using position
         Computer currentComputer = computers[position];
 
-        //get title and artist strings
         computerName.setText(currentComputer.getName());
         computerBarcode.setText(currentComputer.getBarcode());
-       // computerLocation.setText(currentComputer.getLocation());
+        //ZADANIE 2
+        //computerOS.setText(currentComputer.getOs_name());
 
-        //set position as tag
         computerLay.setTag(position);
 
         return computerLay;

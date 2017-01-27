@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements ISendComputer {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Computer selectedComputer;
+    //ZADANIE 4
+    // private Boolean save;
 
     private ViewPager mViewPager;
 
@@ -137,11 +139,27 @@ public class MainActivity extends AppCompatActivity implements ISendComputer {
     @Override
     public void onComputerSend(Computer computer) {
         selectedComputer = computer;
+        //ZADANIE 1
+        //mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+    }
+
+    //ZADANIE 4
+    @Override
+    public void onComputerSend(Computer computer, Boolean save) {
+       /*
+        selectedComputer = computer;
+        this.save = save;
+        //ZADANIE 1
+        //mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+        */
     }
 
     public Computer getSelectedComputer() {
         return selectedComputer;
     }
+
+    //ZADANIE 4
+    // public Boolean getSave(){return save;} //4
 
    public void clearSelectedComputer(){
        selectedComputer = null;

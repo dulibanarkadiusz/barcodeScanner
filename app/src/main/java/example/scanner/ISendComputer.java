@@ -6,4 +6,6 @@ package example.scanner;
 
 public interface ISendComputer {
     void onComputerSend(Computer computer);
+    //ZADANIE 4
+    void onComputerSend(Computer computer, Boolean save);
 }

@@ -123,7 +123,30 @@ public class ListOfComputersFragment extends ListFragment {
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
         dlgAlert.setMessage("Czy na pewno chcesz edytować ten komputer?");
         dlgAlert.setTitle("Uwaga!");
-        dlgAlert.setPositiveButton("Ok",
+
+
+        //ZADANIE 4
+        /*
+        dlgAlert.setPositiveButton("Zapisz i kontunuj",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCallback.onComputerSend(computers[position],true);
+                    }
+                });
+        dlgAlert.setNeutralButton("Kontynuuj bez zapisu",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCallback.onComputerSend(computers[position],false);
+                    }
+                });
+        dlgAlert.setNegativeButton("Anuluj",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });*/
+
+        // Zakomentować od tąd
+        dlgAlert.setPositiveButton("Edytuj",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mCallback.onComputerSend(computers[position]);
@@ -134,6 +157,8 @@ public class ListOfComputersFragment extends ListFragment {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
+        //do toąd
+
         dlgAlert.setCancelable(true);
         dlgAlert.create().show();
     }
