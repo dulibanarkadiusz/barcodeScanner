@@ -70,6 +70,51 @@
                     android:layout_weight="2"
                     android:layout_marginTop="20dp">
 
+                    <!-- ZADANIE 5
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <Button
+                            android:text="Kopiuj dane"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/copyButton"
+                            android:layout_weight="1"
+                            android:onClick="copyComputer" />
+
+                        <Button
+                            android:text="Wklej dane"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/pasteButton"
+                            android:layout_weight="1"
+                            android:onClick="pasteComputer" />
+
+                    </LinearLayout>
+                    -->
+
+                    <!-- ZADANIE 6
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <Button
+                            android:text="Usuń komputer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/deleteButton"
+                            android:layout_weight="1"
+                            android:onClick="deleteCurrComputer" />
+
+                    </LinearLayout>
+                    -->
+
+
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"

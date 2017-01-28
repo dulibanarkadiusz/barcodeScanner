@@ -161,6 +161,23 @@ public class MainActivity extends AppCompatActivity implements ISendComputer {
     //ZADANIE 4
     // public Boolean getSave(){return save;} //4
 
+
+    // ZADANIE 5
+    /*public void copyComputer(View view){
+        ((ScanAndEditComputerFragment) mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem())).copyComputer();
+    }
+
+    public void pasteComputer(View view){
+        ((ScanAndEditComputerFragment) mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem())).pasteComputer();
+    }*/
+
+
+    //Zadanie 6
+    /*
+    public void deleteCurrComputer(View view){
+        ((ScanAndEditComputerFragment) mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem())).deleteCurrentComputer();
+    }*/
+
    public void clearSelectedComputer(){
        selectedComputer = null;
    }

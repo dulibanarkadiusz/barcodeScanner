@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.common.StringUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -34,6 +35,7 @@ public class ScanAndEditComputerFragment extends Fragment{
     private Computer[] computers;
     private Computer currentComputer;
     private Boolean isNewComputer;
+    private Computer copyComputer = new Computer();
 
     public ScanAndEditComputerFragment() {
 
@@ -177,6 +179,7 @@ public class ScanAndEditComputerFragment extends Fragment{
         });
     }
 
+
     public void getComputerData(MainActivity mA, String barcode) throws JSONException {
         final MainActivity mainActivity = mA;
         Log.d("x", "GetComputerData()");
@@ -195,7 +198,8 @@ public class ScanAndEditComputerFragment extends Fragment{
                 setEnabledForm(true);
                 computers = (Computer[]) Serializer.deserialize(response, Computer.class);
                 currentComputer = computers[0];
-                //writeDataToForm(mainActivity);
+
+
                 fillForm(currentComputer);
             }
 
@@ -215,9 +219,22 @@ public class ScanAndEditComputerFragment extends Fragment{
     }
 
     public void createNewComputer(MainActivity m, String barcode){
+        // zadanie 7
+        /*String prefixLastIP = "";
+        if (currentComputer!=null) {
+            prefixLastIP = currentComputer.getIp();
+            int countDots = prefixLastIP.length() - prefixLastIP.replace(".", "").length();
+            if (countDots == 3) {
+                prefixLastIP = prefixLastIP.substring(0, prefixLastIP.lastIndexOf('.')+1);
+            }
+        }*/
+
         currentComputer = new Computer();
         currentComputer.setBarcode(barcode);
         isNewComputer = true;
+
+        // zadanie 7 - cd
+        //currentComputer.setIp(prefixLastIP);
 
         fillForm(currentComputer);
     }
@@ -242,6 +259,41 @@ public class ScanAndEditComputerFragment extends Fragment{
             }
         }
     }
+
+    // Zadanie 5
+    /*
+    public void copyComputer(){
+        copyComputer = currentComputer;
+    }
+
+    public void pasteComputer(){
+        String barcode = currentComputer.getBarcode();
+        currentComputer = copyComputer;
+        currentComputer.setBarcode(barcode);
+        fillForm(currentComputer);
+    }*/
+
+    //zadanie 6
+    /*
+    public void deleteCurrentComputer()
+    {
+        String jsonString = Serializer.serialize(currentComputer);
+        ServerRespons.post(getContext(), "?type=delete", jsonString, null, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Toast.makeText(getContext(), "Komputer został usunięty", Toast.LENGTH_LONG).show();
+                clearForm();
+                setEnabledForm(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getContext(), "Błąd usuwania danych.\nSprawdź połączenie internetowe.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }*/
 
 
     private void clearForm(){
